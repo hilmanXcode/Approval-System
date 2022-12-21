@@ -66,10 +66,11 @@ else {
             }
         }
         else {
-            echo "Payed";
+            echo "<font color='green'>Payed!!, Mohon Menunggu Paket Anda Sampai</font>";
         }
     ?></h3>
     <h3>Kuantitas : <?= $data['buyed']; ?></h3>
+    <hr>
     <?php
     if($data['confirm'] == 0){
         if($data['bukti'] != ""){

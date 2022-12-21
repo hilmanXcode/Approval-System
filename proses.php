@@ -109,4 +109,38 @@ elseif(isset($_POST['invoice_proc'])){
         }
     }
 }
+elseif(isset($_POST['approv_invoice'])){
+    $id_invoice = $_POST['id_invoice'];
+
+    $query = mysqli_query($koneksi, "UPDATE invoice SET confirm=1 WHERE id='$id_invoice'");
+
+    if($query){
+        header("Location: approv-invoice.php");
+    }
+    else {
+        echo "Gagal Update Invoice";
+    }
+}
+elseif(isset($_POST['decline_invoice'])){
+    $id_invoice = $_POST['id_invoice'];
+
+    $foto = mysqli_query($koneksi, "SELECT * FROM invoice WHERE id='$id_invoice'");
+    $data = mysqli_fetch_array($foto, MYSQLI_ASSOC);
+    
+    if($foto){
+        $nama_foto = $data['bukti'];
+        unlink("bukti/".$nama_foto);
+        $query = mysqli_query($koneksi, "UPDATE invoice SET bukti='' WHERE id='$id_invoice'");
+
+        if($query){
+            header("Location: approv-invoice.php");
+        }
+        else {
+            echo "Gagal Mengupdate Invoice";
+        }
+    }
+    else {
+        echo "Gagal mengambil foto";
+    }
+}
 ?>
